@@ -5,13 +5,14 @@ import lesson1.fruit.Fruit;
 import lesson1.fruit.Orange;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
         Integer[] arrInt1 = {1, 2, 3, 4, 5, 6, 7};
         String[] arrStr1 = {"a1", "bb2", "ccc3", "dddd4", "eeeee5"};
-        Integer[] arrIntegerNew;
-        String[] arrStringNew;
+//        Integer[] arrIntegerNew;
+//        String[] arrStringNew;
         ArrayList<Integer> arrList1;
         ArrayList<String> arrList2;
 
@@ -19,14 +20,18 @@ public class Main {
         System.out.println("Задание 1");
         printArr(arrInt1);
         System.out.println("Меняем элементы массива местами");
-        arrIntegerNew = replaceArrElements(0,6,arrInt1);
-        printArr(arrIntegerNew);
+//        arrIntegerNew = replaceArrElements(0,6,arrInt1);
+//        printArr(arrIntegerNew);
+        replaceArrElements(arrInt1, 0,6);
+        printArr(arrInt1);
         System.out.println();
 
         printArr(arrStr1);
         System.out.println("Меняем элементы массива местами");
-        arrStringNew = replaceArrElements(4,2,arrStr1);
-        printArr(arrStringNew);
+//        arrStringNew = replaceArrElements(4,2,arrStr1);
+//        printArr(arrStringNew);
+        replaceArrElements(arrStr1, 4,2);
+        printArr(arrStr1);
         System.out.println();
 
         //задание 2
@@ -43,36 +48,46 @@ public class Main {
 
         //задание 3
         System.out.println("Задание 3");
-        Fruit[] fruits = {
-                new Apple("Яблоко"),
-                new Orange("Апельсин"),
-                new Apple("Яблоко"),
-                new Apple("Яблоко"),
-                new Orange("Апельсин"),
-                new Orange("Апельсин"),
-                new Orange("Апельсин"),
-                new Apple("Яблоко"),
-                new Apple("Яблоко"),
-                new Apple("Яблоко")
+//        Fruit[] fruits = {
+//                new Apple("Яблоко"),
+//                new Orange("Апельсин"),
+//                new Apple("Яблоко"),
+//                new Apple("Яблоко"),
+//                new Orange("Апельсин"),
+//                new Orange("Апельсин"),
+//                new Orange("Апельсин"),
+//                new Apple("Яблоко"),
+//                new Apple("Яблоко"),
+//                new Apple("Яблоко")
+//        };
+//        Fruit fruitBox3 = new Apple("Яблочко");
+        Apple[] fruits1 = {
+                new Apple(),
+                new Apple(),
+                new Apple(),
+                new Apple(),
+                new Apple(),
+                new Apple()
         };
-        Fruit fruitBox3 = new Apple("Яблочко");
+        Orange[] fruits2 = {
+                new Orange(),
+                new Orange(),
+                new Orange(),
+                new Orange()
+        };
+        Apple fruit3 = new Apple();
 
-        Box box1 = new Box("Apple", fruits);
-        Box box2 = new Box("Orange", fruits);
-        Box box3 = new Box("Apple", fruitBox3);
-
-        for (int i = 0; i < fruits.length; i++) {
-            box1.putFruit(fruits[i]);
-            box2.putFruit(fruits[i]);
-        }
-        box3.putFruit(fruitBox3);
+        Box<Apple> box1  = new Box<>(fruits1);
+        Box<Orange> box2 = new Box<>(fruits2);
+        Box<Apple> box3  = new Box<>(fruit3);
 
         // задание 3 d
-        System.out.println("Коробка box1");
+        System.out.println("Коробка box1 с яблоками");
         box1.showInfo();
-        System.out.println("Коробка box2");
+        System.out.println("Коробка box2 с апельсинами");
         box2.showInfo();
-        System.out.println("Коробка box3");
+        System.out.println("Коробка box3 с яблоками");
+        box3.addFruit(fruit3);
         box3.showInfo();
         System.out.println();
 
@@ -90,7 +105,25 @@ public class Main {
     }
 
 
-    public static <T> T[] replaceArrElements(int indexFirst, int indexSecond, T... arr) {
+
+
+
+
+
+
+//    public static <T> T[] replaceArrElements(int indexFirst, int indexSecond, T... arr) {
+//        T temp;
+//        if (arr.length > indexFirst && arr.length > indexSecond && indexFirst >= 0 && indexSecond >= 0) {
+//            temp = arr[indexFirst];
+//            arr[indexFirst] = arr[indexSecond];
+//            arr[indexSecond] = temp;
+//        } else {
+//            System.out.println("Перестановка двух элементов массива местами невозможна. Введены некорректные индексы");
+//        }
+//        return arr;
+//    }
+
+    public static <T> void replaceArrElements(T[] arr, int indexFirst, int indexSecond) {
         T temp;
         if (arr.length > indexFirst && arr.length > indexSecond && indexFirst >= 0 && indexSecond >= 0) {
             temp = arr[indexFirst];
@@ -99,8 +132,20 @@ public class Main {
         } else {
             System.out.println("Перестановка двух элементов массива местами невозможна. Введены некорректные индексы");
         }
-        return arr;
     }
+
+//    public static <T> ArrayList<T> arrToArrList(T... arr) {
+//        ArrayList<T> arrayList = new ArrayList<>();
+//        for (int i = 0; i < arr.length; i++) {
+//            arrayList.add(arr[i]);
+//        }
+//        return arrayList;
+//    }
+
+    public static <T> ArrayList<T> arrToArrList(T[] arr) {
+        return new ArrayList<>(Arrays.asList(arr));
+    }
+
 
     public static <T> void printArr(T... arr) {
         System.out.print("Массив имеет вид: [ ");
@@ -109,14 +154,5 @@ public class Main {
         }
         System.out.println("]");
     }
-
-    public static <T> ArrayList<T> arrToArrList(T... arr) {
-        ArrayList<T> arrayList = new ArrayList<>();
-        for (int i = 0; i < arr.length; i++) {
-            arrayList.add(arr[i]);
-        }
-        return arrayList;
-    }
-
 
 }
